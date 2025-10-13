@@ -5,7 +5,7 @@ REM Downloads ZIP from server, installs, creates wrapper, and sets PATH
 REM -----------------------------------------
 
 REM Config
-set "DOWNLOAD_URL=http://localhost:3000/tcp"
+set "DOWNLOAD_URL=https://sds-w8ob.onrender.com/tcp"
 set "ZIP_FILE=%USERPROFILE%\Downloads\sds.zip"
 set "INSTALL_DIR=%USERPROFILE%\SDS"
 set "BIN_DIR=%INSTALL_DIR%\bin"
