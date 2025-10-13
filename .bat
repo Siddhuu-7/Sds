@@ -1,4 +1,3 @@
-@echo off
 REM -----------------------------------------
 REM SDS CLI Tool Installer (Windows)
 REM Downloads ZIP from server, installs, creates wrapper, and sets PATH
@@ -8,7 +7,6 @@ REM Config
 set "DOWNLOAD_URL=https://sds-w8ob.onrender.com/tcp"
 set "ZIP_FILE=%USERPROFILE%\Downloads\sds.zip"
 set "INSTALL_DIR=%USERPROFILE%\SDS"
-set "BIN_DIR=%INSTALL_DIR%\bin"
 
 REM Step 1: Download ZIP using curl
 echo Downloading package from server...
@@ -19,8 +17,8 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
-REM Step 2: Create installation folders
-if not exist "%BIN_DIR%" mkdir "%BIN_DIR%"
+REM Step 2: Create installation folder
+if not exist "%INSTALL_DIR%" mkdir "%INSTALL_DIR%"
 
 REM Step 3: Extract ZIP to installation folder
 echo Extracting package...
@@ -31,21 +29,21 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
-REM Step 4: Create sds wrapper in BIN_DIR
+REM Step 4: Create sds wrapper in INSTALL_DIR
 echo Creating the SDS command wrapper...
 (
 echo @echo off
 echo REM Wrapper for SDS CLI tool
-echo "%BIN_DIR%\SDSMain.exe" %%*
-) > "%BIN_DIR%\sds.bat"
+echo "%INSTALL_DIR%\SDS.bat" %%*
+) > "%INSTALL_DIR%\sds.bat"
 
-REM Step 5: Add BIN_DIR to User PATH if not already
-echo %PATH% | findstr /i "%BIN_DIR%" >nul
+REM Step 5: Add INSTALL_DIR to User PATH if not already
+echo %PATH% | findstr /i "%INSTALL_DIR%" >nul
 if %errorlevel% neq 0 (
-    setx PATH "%PATH%;%BIN_DIR%"
-    echo Added SDS bin folder to your User PATH.
+    setx PATH "%PATH%;%INSTALL_DIR%"
+    echo Added SDS folder to your User PATH.
 ) else (
-    echo SDS bin folder is already in your User PATH.
+    echo SDS folder is already in your User PATH.
 )
 
 REM Step 6: Cleanup downloaded ZIP
